@@ -1,14 +1,13 @@
 package com.ohgiraffers.restapi.section03.valid;
 
 import com.ohgiraffers.restapi.section02.responseentity.ResponseMessage;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.*;
@@ -51,4 +50,14 @@ public class ValidTestController {
                 .headers(headers)
                 .body(new ResponseMessage(200, "조회 성공", responseMap));
     }
+
+    @PostMapping("/users")
+    public ResponseEntity<?> registUser(@Valid @RequestBody UserDTO newUser) {
+
+        System.out.println("user 들어오고 있니? " + newUser);
+
+        return ResponseEntity.created(URI.create("/valid/users/" + "userNo")).build();
+
+    }
+
 }
